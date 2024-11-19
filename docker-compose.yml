@@ -1,0 +1,29 @@
+#version: "3.4"
+
+services:
+  wiremock:
+    image: holomekc/wiremock-gui:2.34.0.0
+    container_name: wiremock
+    ports:
+      - "9001:8080"
+    volumes:
+      - ./localstack/data/stubs:/home/wiremock/storage
+    environment:
+      WIREMOCK_OPTIONS: "--local-response-templating,--root-dir=/home/wiremock/storage"
+
+  localstack:
+    image: localstack/localstack:0.12.18
+    container_name: localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=sqs
+      - AWS_ACCESS_KEY_ID=s2w-id
+      - AWS_SECRET_ACCESS_KEY=s2w-key
+      - AWS_SECRET_KEY=s2w-secret
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_DEFAULT_OUTPUT=json
+      - DEBUG=1
+      - USE_SSL=0
+    volumes:
+      - "./localstack/bin:/docker-entrypoint-initaws.d"    
