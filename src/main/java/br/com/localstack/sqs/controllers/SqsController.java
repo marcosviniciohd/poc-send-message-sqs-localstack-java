@@ -1,6 +1,6 @@
 package br.com.localstack.sqs.controllers;
 
-import br.com.localstack.sqs.SqsService;
+import br.com.localstack.sqs.service.SqsService;
 import com.amazonaws.services.sqs.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
